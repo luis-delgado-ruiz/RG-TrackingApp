@@ -4,7 +4,7 @@ from typing import TypedDict, AsyncIterator
 from sqlalchemy.orm import Session, sessionmaker
 from fastapi import FastAPI
 
-from db import DatabaseManager
+from db import DbConfig
 
 
 class State(TypedDict):
@@ -13,7 +13,7 @@ class State(TypedDict):
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[State]:
-    db_manager = DatabaseManager()
+    db_manager = DbConfig()
     db_manager.create_tables()
     db_session = db_manager.get_session_maker()
 
