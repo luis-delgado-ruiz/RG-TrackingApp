@@ -1,6 +1,10 @@
 from fastapi import FastAPI
 
-app = FastAPI()
+from events import lifespan
+from api.routers import login_router
+
+app = FastAPI(lifespan=lifespan, title="FG Tracking App")
+app.include_router(login_router, tags=["Login"])
 
 
 @app.get("/")
